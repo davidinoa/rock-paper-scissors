@@ -3,10 +3,10 @@ import { assign, setup } from 'xstate'
 
 export const choices = ['rock', 'paper', 'scissors'] as const
 
-const determineWinner = (
-  playerChoice: string,
-  computerChoice: string,
-): 'player' | 'computer' | 'draw' => {
+export type Choice = (typeof choices)[number]
+export type Winner = 'player' | 'computer' | 'draw'
+
+const determineWinner = (playerChoice: string, computerChoice: string) => {
   if (playerChoice === computerChoice) return 'draw'
   if (
     (playerChoice === 'rock' && computerChoice === 'scissors') ||
@@ -17,9 +17,6 @@ const determineWinner = (
   }
   return 'computer'
 }
-
-type Choice = (typeof choices)[number]
-type Winner = 'player' | 'computer' | 'draw'
 
 type Context = {
   playerChoice: Choice | null
@@ -45,16 +42,9 @@ const machine = setup({
   },
 }).createMachine({
   id: 'rockPaperScissors',
-  initial: 'start',
+  initial: 'playerTurn',
   context: initialContext,
   states: {
-    start: {
-      on: {
-        PLAY: {
-          target: 'playerTurn',
-        },
-      },
-    },
     playerTurn: {
       on: {
         SELECT: {
@@ -94,7 +84,7 @@ const machine = setup({
     end: {
       on: {
         PLAY_AGAIN: {
-          target: 'start',
+          target: 'playerTurn',
           actions: [assign(initialContext)],
         },
       },
