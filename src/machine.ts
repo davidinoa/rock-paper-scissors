@@ -1,3 +1,4 @@
+import { createActorContext } from '@xstate/react'
 import { assign, setup } from 'xstate'
 
 export const choices = ['rock', 'paper', 'scissors'] as const
@@ -100,5 +101,7 @@ const machine = setup({
     },
   },
 })
+
+export const MachineContext = createActorContext(machine)
 
 export default machine

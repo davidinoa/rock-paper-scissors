@@ -1,14 +1,15 @@
-import { useMachine } from '@xstate/react'
+import Choices from './Choices'
 import Header from './Header'
-import machine, { choices } from './machine'
+import { MachineContext } from './machine'
 
-function App() {
-  const [state, send] = useMachine(machine)
+export default function App() {
+  const { send } = MachineContext.useActorRef()
+  const state = MachineContext.useSelector((s) => s)
 
   return (
     <>
       <Header />
-      <main className="mt-10 grid h-full place-items-center text-4xl text-white">
+      <main className="mt-[105px] grid h-full place-items-center text-4xl text-white">
         {state.matches('start') && (
           <button
             type="button"
@@ -18,17 +19,7 @@ function App() {
             Start Game
           </button>
         )}
-        {state.matches('playerTurn') &&
-          choices.map((choice) => (
-            <button
-              type="button"
-              className="rounded-md bg-green-600 px-4 py-2 text-white"
-              key={choice}
-              onClick={() => send({ type: 'SELECT', choice })}
-            >
-              {choice}
-            </button>
-          ))}
+        {state.matches('playerTurn') && <Choices />}
         {state.matches('computerTurn') && (
           <div>
             <h1>Computer is thinking...</h1>
@@ -53,5 +44,3 @@ function App() {
     </>
   )
 }
-
-export default App
