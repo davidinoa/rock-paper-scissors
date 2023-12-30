@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="mt-[105px] grid h-full place-items-center text-4xl text-white">
+      <main className="mt-[105px] grid h-full place-items-center text-white">
         {state.matches('playerTurn') ? <Choices /> : <Outcome />}
       </main>
     </>

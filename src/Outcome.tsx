@@ -27,12 +27,12 @@ export default function Outcome() {
 
   return (
     <>
-      <div className="flex justify-center gap-[4.25rem] text-[0.9375rem] uppercase">
-        <div className="flex flex-col items-center">
+      <div className="flex min-w-[20.625rem] justify-center gap-[4.25rem] text-[0.9375rem] uppercase">
+        <div className="flex flex-1 flex-col items-center">
           <h2>You Picked</h2>
           {icons[state.context.playerChoice!]}
         </div>
-        <div className="flex min-w-[121.5px] flex-col items-center">
+        <div className="flex flex-1 flex-col items-center">
           <h2>The House Picked</h2>
           <div className="flex grow items-center">
             {state.matches('computerTurn') && (

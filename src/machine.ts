@@ -22,12 +22,14 @@ type Context = {
   playerChoice: Choice | null
   computerChoice: Choice | null
   winner: Winner | null
+  playerScore: number
 }
 
 const initialContext: Context = {
   playerChoice: null,
   computerChoice: null,
   winner: null,
+  playerScore: 0,
 }
 
 type Event =
@@ -74,9 +76,19 @@ const machine = setup({
       always: {
         target: 'end',
         actions: [
-          assign({
-            winner: ({ context }) =>
-              determineWinner(context.playerChoice!, context.computerChoice!),
+          assign(({ context }) => {
+            const winner = determineWinner(
+              context.playerChoice!,
+              context.computerChoice!,
+            )
+            return {
+              ...context,
+              winner,
+              playerScore:
+                winner === 'player'
+                  ? context.playerScore + 1
+                  : context.playerScore,
+            }
           }),
         ],
       },
@@ -85,7 +97,12 @@ const machine = setup({
       on: {
         PLAY_AGAIN: {
           target: 'playerTurn',
-          actions: [assign(initialContext)],
+          actions: [
+            assign({
+              ...initialContext,
+              playerScore: ({ context }) => context.playerScore,
+            }),
+          ],
         },
       },
     },
