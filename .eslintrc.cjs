@@ -20,7 +20,7 @@ module.exports = {
     'import/no-absolute-path': 'off',
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['vite.config.ts'] },
+      { devDependencies: ['vite.config.ts', 'tailwind.config.js'] },
     ],
   },
 }
