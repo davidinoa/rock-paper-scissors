@@ -1,7 +1,7 @@
-/* eslint-disable no-nested-ternary */
 import Choices from './Choices'
 import Header from './Header'
 import Outcome from './Outcome'
+import RulesModal from './RulesModal'
 import { MachineContext } from './machine'
 
 export default function App() {
@@ -10,9 +10,12 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="mt-[105px] grid h-full place-items-center text-white">
+      <main className="grid h-full place-items-center text-white">
         {state.matches('playerTurn') ? <Choices /> : <Outcome />}
       </main>
+      <footer className="flex justify-center">
+        <RulesModal />
+      </footer>
     </>
   )
 }

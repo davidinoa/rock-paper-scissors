@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html {
+  overflow: hidden;
   background: radial-gradient(
     134.34% 134.34% at 50% 0%,
     #1f3757 0%,

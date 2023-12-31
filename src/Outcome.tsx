@@ -27,7 +27,7 @@ export default function Outcome() {
 
   return (
     <>
-      <div className="flex min-w-[20.625rem] justify-center gap-[4.25rem] text-[0.9375rem] uppercase">
+      <div className="flex justify-center gap-[3.625rem] text-[0.9375rem] uppercase">
         <div className="flex flex-1 flex-col items-center">
           <h2>You Picked</h2>
           {icons[state.context.playerChoice!]}
